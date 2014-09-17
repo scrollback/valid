@@ -42,5 +42,36 @@ describe("Validator test", function() {
 		assert.equal(isValid.status, false, "should not return true");
 	});
 	
-	
+	it("test with function: should return true", function() {
+		var isValid = validator.validate(message, {
+			type: ['string'],
+			id: [function(id) {
+				return id.length > 1;
+			}],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		});
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, true, "should return status true");
+	});
+
+
+	it("test with function: should return false", function() {
+		var isValid = validator.validate(message, {
+			type: ['string'],
+			id: [function(id) {
+				return id.length < 1;
+			}],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		});
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, false, "should return status false");
+	});
 });

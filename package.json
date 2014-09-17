@@ -1,5 +1,6 @@
 {
 	"name": "valid",
+	"version": "0.1.0",
 	"description": "Light weight object validator.",
 	"author": "scrollback (info@askabt.in)",
 	"homepage": "http://scrollback.io",

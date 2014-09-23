@@ -74,4 +74,41 @@ describe("Validator test", function() {
 		console.log("Valid", isValid);
 		assert.equal(isValid.status, false, "should return status false");
 	});
+	
+	it("Test for non empty string: false", function() {
+		var isValid = validator.validate(message, {
+			type: ['nonEmptyString'],
+			id: [function(id) {
+				return id.length > 1;
+			}],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		});
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, true, "should return status true");
+	});
+	
+	it("Test for non empty string: false", function() {
+		
+		message.type = "";
+		var isValid = validator.validate(message, {
+			type: ['nonEmptyString'],
+			id: [function(id) {
+				return id.length > 1;
+			}],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		});
+		console.log("Valid", isValid);
+		message.type = "text";
+		assert.equal(isValid.status, false, "should return status false");
+	});
+	
+	
 });

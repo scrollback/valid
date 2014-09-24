@@ -109,6 +109,49 @@ describe("Validator test", function() {
 		message.type = "text";
 		assert.equal(isValid.status, false, "should return status false");
 	});
+
+	it("Test for strict object: false", function() {
+		message.test = [];
+		var t = {
+			type: ['string'],
+			test: ['strictObject'],
+			id: ['string'],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		};
+		var isValid = validator.validate(message, t);
+		
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, false, "should return status false");
+		t.test = ['object'];
+		isValid = validator.validate(message, t)
+		assert.equal(isValid.status, true, "should return true");
+		delete message.test;
+	});
 	
+	it("Test for strict object: true", function() {
+		message.test = {};
+		var t = {
+			type: ['string'],
+			test: ['strictObject'],
+			id: ['string'],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything']
+			}]
+		};
+		var isValid = validator.validate(message, t);
+
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, true, "should return status true");
+		t.test = ['object'];
+		isValid = validator.validate(message, t)
+		assert.equal(isValid.status, true, "should return true");
+		delete message.test;
+	});
 	
 });

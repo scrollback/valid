@@ -132,6 +132,29 @@ describe("Validator test", function() {
 		delete message.test;
 	});
 	
+	it("Test for nested strict object: true", function() {
+		message.test = {};
+		var t = {
+			type: ['string'],
+			test: ['strictObject'],
+			id: ['string'],
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['anything'],
+				temp: ['strictObject']
+			}]
+		};
+		//message.room.temp = {};
+		var isValid = validator.validate(message, t);
+
+		console.log("Valid", isValid);
+		assert.equal(isValid.status, false, "should return status false");
+		delete message.test;
+		delete message.room.temp;
+	});
+
+
 	it("Test for strict object: true", function() {
 		message.test = {};
 		var t = {
@@ -141,9 +164,11 @@ describe("Validator test", function() {
 			text: ['string'],
 			room: [{
 				id: ['string'],
-				type: ['anything']
+				type: ['anything'],
+				temp: ['strictObject']
 			}]
 		};
+		message.room.temp = {};
 		var isValid = validator.validate(message, t);
 
 		console.log("Valid", isValid);
@@ -152,8 +177,12 @@ describe("Validator test", function() {
 		isValid = validator.validate(message, t)
 		assert.equal(isValid.status, true, "should return true");
 		delete message.test;
+		delete message.room.temp;
 	});
 	
+
+
+
 	it("Test for adding function: return true", function() {
 		validator.registerType('zero', function(v) {
 			return v === 0;

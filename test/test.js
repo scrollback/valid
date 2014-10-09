@@ -154,4 +154,26 @@ describe("Validator test", function() {
 		delete message.test;
 	});
 	
+	it("Test for adding function: return true", function() {
+		validator.registerType('zero', function(v) {
+			return v === 0;
+		});
+		message.number = 0;
+		var t = {
+			"number": ['zero']
+		};
+		var isValid = validator.validate(message, t);
+		assert.equal(isValid.status, true, "Should return true");
+	});
+	
+	
+	it("Test for adding function: return false", function() {
+		message.number = 1;
+		var t = {
+			"number": ['zero']
+		};
+		var isValid = validator.validate(message, t);
+		assert.equal(isValid.status, false, "Should return false");
+	});
+	
 });

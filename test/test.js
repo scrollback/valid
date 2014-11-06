@@ -205,4 +205,22 @@ describe("Validator test", function() {
 		assert.equal(isValid.status, false, "Should return false");
 	});
 	
+	it("Test for deep object", function() {
+		var room = {
+			params: {
+				threader: { enabled: true}
+			}
+		}
+		var t = {
+			params: [{
+				threader: ['undefined', {
+					enabled: ['boolean']
+				}]
+			}]
+		}
+		var isValid = validator.validate(room, t);
+		assert.equal(isValid.status, true, "Should return false");
+	});
+
+
 });

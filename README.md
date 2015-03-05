@@ -7,7 +7,6 @@ A validator
 ```npm install git://github.com/scrollback/valid.git#v0.0.1```
 
 ##Usage
-Valid usage plugin based architecture to add validation functions.
 
 ### creating new Object
 ``` javascript 
@@ -51,7 +50,7 @@ To validate an object against validator object.
 var result = valid.validate(object, validator); 
 ```
 It will return an object of type Result:
-```
+```javascript
 { 
   status: true | false,
   info: 'string'

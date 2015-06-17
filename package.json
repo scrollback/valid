@@ -17,6 +17,9 @@
 	"private": true,
 	"license": "AGPL",
 	"main": "./index.js",
+	"scripts": {
+    "test": "node_modules/.bin/mocha test/test.js"
+  },
 	"dependencies": {
 		
 	},

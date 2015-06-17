@@ -25,6 +25,6 @@
 	},
 	"optionalDependencies": {},
 	"devDependencies": {
-		
+		"mocha": "latest"
 	}
 }

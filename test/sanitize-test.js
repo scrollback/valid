@@ -91,24 +91,24 @@ it("should return status false if no defaultvalue", function() {
 	assert.equal(sanitize.status, false, "should return false");
 });
 
-it("should throw error if no defaultvalue", function() {
-	var sanitize = validator.sanitize({
-		type: "text",
-		id: null,
-		text: "this is new text",
-		room: {
-			id: 'jdakjf930784ufjhcu',
-			type: 'room'
-		}
-	}, {
-		type: ['string'],
-		id: ['string'],
-		text: ['string'],
-		room: [{
+it("should throw error if no default value", function() {
+	assert.throws(function(){
+		validator.sanitize({
+			type: "text",
+			id: null,
+			text: "this is new text",
+			room: {
+				id: 'jdakjf930784ufjhcu',
+				type: 'room'
+			}
+		}, {
+			type: ['string'],
 			id: ['string'],
-			type: ['string']
-			}]
-	}, {});
-	console.log(sanitize.err);
-	assert.equal(sanitize.err, "NO_DEFAULT_VALUE", "should return false");
+			text: ['string'],
+			room: [{
+				id: ['string'],
+				type: ['string']
+				}]
+		}, {});
+	}, /^Error: NO_DEFAULT_VALUE$/, "should return false");
 });
